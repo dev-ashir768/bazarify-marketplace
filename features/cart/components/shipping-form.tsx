@@ -2,7 +2,7 @@
 
 import { Controller, useFormContext } from "react-hook-form";
 
-import { OutlinedCombobox } from "@/components/shared/outlined-combobox";
+import { OutlinedSelect } from "@/components/shared/outlined-select";
 import { OutlinedInput } from "@/components/shared/outlined-field";
 import { cities, type ShippingFormInput } from "@/schemas/checkout.schema";
 
@@ -40,7 +40,7 @@ export function ShippingForm() {
           control={control}
           name="city"
           render={({ field, fieldState }) => (
-            <OutlinedCombobox
+            <OutlinedSelect
               label="City"
               name={field.name}
               options={cities}
@@ -48,8 +48,8 @@ export function ShippingForm() {
               onChange={field.onChange}
               onBlur={field.onBlur}
               inputRef={field.ref}
-              placeholder="Search city"
-              emptyText="City not found"
+              placeholder="Select city"
+              noOptionsText="City not found"
               error={fieldState.error?.message}
             />
           )}

@@ -2,9 +2,6 @@
  * Temporary mock data taken from the Figma design (Bazarify V3).
  * Only `services/*` may import from here — swap those for real API calls later.
  */
-import { existsSync } from "node:fs";
-import { join } from "node:path";
-
 import type { Banner, Category, Product, Review, Store } from "@/types/catalog";
 
 export const stores: Store[] = [
@@ -93,22 +90,17 @@ const seeds: Seed[] = [
   { slug: "waterproof-makeup-pouch", name: "Waterproof Makeup Pouch", price: 1750, compareAtPrice: 2550, rating: { average: 4.6, count: 214 }, soldCount: 92, storeId: "st_4", categoryId: "ct_6" },
 ];
 
-/** Extra gallery shots exported from Figma, used only when the files exist in public/. */
-const galleryFiles: Record<string, string[]> = {
-  "matilda-pinafore-set": [
-    "matilda-main.jpg",
-    "matilda-thumb-1.jpg",
-    "matilda-thumb-2.jpg",
-    "matilda-thumb-3.jpg",
-    "matilda-thumb-4.jpg",
-  ],
-};
+/**
+ * Extra gallery shots per product, as file names in public/images/products.
+ * Matilda's Figma exports go here once they are in that folder, e.g.
+ * "matilda-pinafore-set": ["matilda-main.jpg", "matilda-thumb-1.jpg", ...].
+ * Products without an entry use their single card image.
+ */
+const galleryFiles: Partial<Record<string, string[]>> = {};
 
 function galleryFor(slug: string, name: string): Product["images"] {
-  const files = (galleryFiles[slug] ?? []).filter((file) =>
-    existsSync(join(process.cwd(), "public/images/products", file)),
-  );
-  const urls = files.length > 0 ? files.map((file) => `/images/products/${file}`) : [`/images/products/${slug}.jpg`];
+  const files = galleryFiles[slug];
+  const urls = files?.length ? files.map((file) => `/images/products/${file}`) : [`/images/products/${slug}.jpg`];
   return urls.map((url, index) => ({ url, alt: index === 0 ? name : `${name} — view ${index + 1}` }));
 }
 

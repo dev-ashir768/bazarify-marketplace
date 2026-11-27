@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { HeartIcon, ShoppingCartIcon } from "lucide-react";
@@ -18,8 +19,24 @@ function CountBadge({ count }: { count: number }) {
   );
 }
 
+/**
+ * `usePathname()` is request-specific on dynamic routes, so it lives inside Suspense.
+ * The fallback renders the same links without the active state, keeping the shared
+ * layout instant to navigate (Next 16 instant-navigation validation).
+ */
 export function HeaderActions() {
-  const pathname = usePathname();
+  return (
+    <Suspense fallback={<HeaderLinks pathname={null} />}>
+      <HeaderLinksWithPathname />
+    </Suspense>
+  );
+}
+
+function HeaderLinksWithPathname() {
+  return <HeaderLinks pathname={usePathname()} />;
+}
+
+function HeaderLinks({ pathname }: { pathname: string | null }) {
   const cartCount = useCartStore(selectCartCount);
   const wishlistCount = useWishlistStore((state) => state.ids.length);
 
