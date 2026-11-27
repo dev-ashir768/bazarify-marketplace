@@ -1,12 +1,16 @@
 "use client";
 
-import Select, { type SingleValue } from "react-select";
+import Select, { components, type InputProps, type SingleValue } from "react-select";
 
 import { cn } from "@/lib/utils";
 
 import { FieldShell } from "./outlined-field";
 
 type Option = { value: string; label: string };
+
+function SearchInput(props: InputProps<Option, false>) {
+  return <components.Input {...props} autoComplete="bazarify-no-autofill" />;
+}
 
 type OutlinedSelectProps = {
   label: string;
@@ -15,7 +19,6 @@ type OutlinedSelectProps = {
   value: string;
   onChange: (value: string) => void;
   onBlur?: () => void;
-  /** Receives the select instance; React Hook Form calls `.focus()` on it for the first invalid field. */
   inputRef?: (instance: { focus: () => void } | null) => void;
   error?: string;
   placeholder?: string;
@@ -23,10 +26,6 @@ type OutlinedSelectProps = {
   className?: string;
 };
 
-/**
- * react-select (searchable, clearable, keyboard friendly) styled with Tailwind
- * to match the outlined fields from the Figma checkout form.
- */
 export function OutlinedSelect({
   label,
   name,
@@ -42,16 +41,17 @@ export function OutlinedSelect({
 }: OutlinedSelectProps) {
   const items: Option[] = options.map((option) => ({ value: option, label: option }));
   const selected = items.find((item) => item.value === value) ?? null;
+  const inputId = `${name}-search`;
 
   return (
-    <FieldShell label={label} name={name} error={error} className={className}>
+    <FieldShell label={label} name={inputId} error={error} className={className}>
       <Select<Option, false>
         unstyled
         isClearable
         isSearchable
         instanceId={name}
-        inputId={name}
-        name={name}
+        inputId={inputId}
+        components={{ Input: SearchInput }}
         ref={inputRef}
         options={items}
         value={selected}
@@ -60,9 +60,8 @@ export function OutlinedSelect({
         placeholder={placeholder}
         noOptionsMessage={() => noOptionsText}
         aria-invalid={error ? true : undefined}
-        aria-errormessage={error ? `${name}-error` : undefined}
+        aria-errormessage={error ? `${inputId}-error` : undefined}
         classNames={{
-          // `!` beats react-select's own min-height so it lines up with OutlinedInput.
           control: () => "min-h-12! cursor-pointer bg-transparent pr-3 pl-4 text-sm text-ink xl:min-h-[58px]! xl:text-base",
           valueContainer: () => "gap-1",
           placeholder: () => "text-ink-muted/60",
