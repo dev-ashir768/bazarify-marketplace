@@ -6,7 +6,7 @@ export const metadata: Metadata = { title: "My Cart" };
 
 export default function CartPage() {
   return (
-    <div className="container-page py-8 xl:py-12">
+    <div className="container py-8 xl:py-12">
       <CheckoutView />
     </div>
   );

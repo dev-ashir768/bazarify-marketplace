@@ -59,10 +59,11 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --max-width-11xl: 1792px;
+  --max-width-8xl: 1408px;
 }
 
 :root {
-  /* Brand (Figma: Bazarify V3) */
   --brand: #532093;
   --brand-accent: #a70cf2;
   --surface: #f3f6f9;
@@ -148,25 +149,21 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
-  button:not(:disabled), [role="button"]:not(:disabled) {
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
     cursor: pointer;
   }
+
   html {
     @apply font-sans;
   }
 }
-@utility container-page {
-  margin-inline: auto;
-  width: 100%;
-  max-width: 1760px;
-  padding-inline: 1rem;
-  @media (width >= 48rem) {
-    padding-inline: 2rem;
-  }
-  @media (width >= 80rem) {
-    padding-inline: 3.5rem;
-  }
+
+@utility container {
+  @apply mx-auto w-full max-w-11xl px-4 sm:px-6 sm:max-w-8xl;
 }

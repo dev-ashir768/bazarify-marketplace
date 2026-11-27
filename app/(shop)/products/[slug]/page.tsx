@@ -45,7 +45,7 @@ async function ProductContent({ params }: Pick<PageProps<"/products/[slug]">, "p
   ]);
 
   return (
-    <div className="container-page py-6 2xl:pt-[69px] 2xl:pb-0">
+    <div className="container py-6 2xl:pt-[69px] 2xl:pb-0">
       <Breadcrumbs items={[{ label: "Marketplace", href: routes.home }, { label: product.name }]} />
 
       {/* Figma 1920: 806px left column, 68px gap, 826px info column. */}
@@ -69,7 +69,7 @@ async function ProductContent({ params }: Pick<PageProps<"/products/[slug]">, "p
 
 function ProductPageSkeleton() {
   return (
-    <div className="container-page animate-pulse py-6 xl:py-10">
+    <div className="container animate-pulse py-6 xl:py-10">
       <div className="mb-12 h-4 w-48 rounded bg-surface" />
       <div className="grid gap-10 lg:grid-cols-2 xl:gap-16">
         <div className="aspect-[4/3.6] rounded-[28px] bg-surface" />

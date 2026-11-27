@@ -27,7 +27,7 @@ export function SiteFooter() {
 
   return (
     <footer className="mt-auto bg-footer text-sm lg:text-base">
-      <div className="container-page grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_0.8fr_1.4fr_0.8fr] lg:py-20">
+      <div className="container grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_0.8fr_1.4fr_0.8fr] lg:py-20">
         <div className="space-y-6">
           <Logo variant="white" />
           <p className="max-w-sm leading-relaxed text-white/60">{siteConfig.description}</p>
@@ -76,7 +76,7 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <div className="container-page">
+      <div className="container">
         <div className="flex flex-col gap-4 border-t border-white/10 py-6 text-xs text-white/60 md:flex-row md:items-center md:justify-between lg:text-sm">
           <p>© {siteConfig.copyrightYear} {siteConfig.name}. All Right Reserved.</p>
           <ul className="flex flex-wrap gap-x-6 gap-y-2">

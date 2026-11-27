@@ -16,7 +16,7 @@ async function OrderId({ searchParams }: Pick<PageProps<"/checkout/success">, "s
 
 export default function CheckoutSuccessPage({ searchParams }: PageProps<"/checkout/success">) {
   return (
-    <div className="container-page py-10 xl:py-20">
+    <div className="container py-10 xl:py-20">
       <section className="relative mx-auto max-w-[1470px] overflow-hidden rounded-[28px] bg-surface px-6 py-16 text-center xl:py-24">
         <Fireworks className="absolute -top-2 -right-4 hidden size-40 md:block" />
         <Fireworks className="absolute top-16 -left-10 hidden size-40 md:block" />

@@ -12,7 +12,7 @@ export default async function HomePage() {
   ]);
 
   return (
-    <div className="container-page space-y-6 py-6 xl:space-y-10 xl:py-10">
+    <div className="container space-y-6 py-6 xl:space-y-10 xl:py-10">
       <HeroBanners hero={banners.hero} side={banners.side}>
         <TrustBadges />
       </HeroBanners>

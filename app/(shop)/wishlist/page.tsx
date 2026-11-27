@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "My Wishlist" };
 export default async function WishlistPage() {
   const products = await getProducts();
   return (
-    <div className="container-page py-8 xl:py-12">
+    <div className="container py-8 xl:py-12">
       <WishlistView products={products} />
     </div>
   );
