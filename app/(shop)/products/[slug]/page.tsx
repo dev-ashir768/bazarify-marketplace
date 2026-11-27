@@ -45,9 +45,9 @@ async function ProductContent({ params }: Pick<PageProps<"/products/[slug]">, "p
   ]);
 
   return (
-    <div className="container py-6 2xl:pt-[69px] 2xl:pb-0">
+    <div className="container py-6 2xl:pt-17.25 2xl:pb-0">
       <Breadcrumbs items={[{ label: "Marketplace", href: routes.home }, { label: product.name }]} />
-      <div className="mt-6 grid items-start gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-[806fr_826fr] xl:gap-x-12 2xl:mt-10 2xl:max-w-[1700px] 2xl:gap-x-[68px] 2xl:gap-y-[79px]">
+      <div className="mt-6 grid items-start gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-[806fr_826fr] xl:gap-x-12 2xl:mt-10 2xl:max-w-[1700px] 2xl:gap-x-17 2xl:gap-y-19.75">
         <div className="md:col-start-1 md:row-start-1">
           <ProductGallery images={product.images} />
         </div>
@@ -59,7 +59,7 @@ async function ProductContent({ params }: Pick<PageProps<"/products/[slug]">, "p
         </div>
       </div>
 
-      <section aria-labelledby="related-heading" className="mt-12 space-y-6 2xl:mt-[80px] 2xl:space-y-9">
+      <section aria-labelledby="related-heading" className="mt-12 space-y-6 2xl:mt-20 2xl:space-y-9">
         <h2 id="related-heading" className="text-2xl font-semibold text-ink 2xl:text-[28px]">
           You May Also Like
         </h2>
