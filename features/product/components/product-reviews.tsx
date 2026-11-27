@@ -18,40 +18,40 @@ export function ProductReviews({ reviews, breakdown }: ProductReviewsProps) {
   const remaining = Math.max(0, breakdown.total - reviews.length);
 
   return (
-    <section aria-labelledby="reviews-heading" className="space-y-5 2xl:space-y-[24px]">
+    <section aria-labelledby="reviews-heading" className="space-y-5 2xl:space-y-6">
       <div className="flex items-center justify-between gap-4">
         <div>
           <h2 id="reviews-heading" className="text-xl font-semibold text-ink 2xl:text-[28px] 2xl:leading-tight">
             Customer Reviews
           </h2>
-          <p className="mt-1 text-xs text-ink-muted 2xl:mt-[10px] 2xl:text-base">
+          <p className="mt-1 text-xs text-ink-muted 2xl:mt-2.5 2xl:text-base">
             What verified buyers say about this product.
           </p>
         </div>
-        <button type="button" className={`${greyButton} shrink-0 px-5 2xl:w-[238px]`}>
+        <button type="button" className={`${greyButton} shrink-0 px-5 2xl:w-59.5`}>
           Write a Review
         </button>
       </div>
 
-      <div className={`${card} flex items-center gap-5 p-5 2xl:h-[218px] 2xl:gap-[18px] 2xl:px-[28px]`}>
-        <div className="w-24 shrink-0 text-center 2xl:w-[104px]">
-          <p className="font-price text-4xl font-bold text-ink 2xl:text-[56px] 2xl:leading-[69px]">{breakdown.average}</p>
+      <div className={`${card} flex items-center gap-5 p-5 2xl:h-54.5 2xl:gap-4.5 2xl:px-7`}>
+        <div className="w-24 shrink-0 text-center 2xl:w-26">
+          <p className="font-price text-4xl font-bold text-ink 2xl:text-[56px] 2xl:leading-17.25">{breakdown.average}</p>
           <RatingStars value={breakdown.average} className="text-sm 2xl:text-base" />
-          <p className="mt-2 text-xs text-ink-muted 2xl:mt-[20px] 2xl:text-base">{breakdown.total} reviews</p>
+          <p className="mt-2 text-xs text-ink-muted 2xl:mt-5 2xl:text-base">{breakdown.total} reviews</p>
         </div>
-        <ul className="flex-1 space-y-2 2xl:space-y-[22px]">
+        <ul className="flex-1 space-y-2 2xl:space-y-5.5">
           {stars.map((star) => (
             <li key={star} className="flex items-center gap-2 text-xs text-ink-muted 2xl:text-base">
               <span className="w-7 shrink-0 2xl:w-8">
                 {star} <span className="text-rating">★</span>
               </span>
-              <span className="h-2 flex-1 overflow-hidden rounded-full bg-white 2xl:h-[13px]">
+              <span className="h-2 flex-1 overflow-hidden rounded-full bg-white 2xl:h-3.25">
                 <span
                   className="block h-full rounded-full bg-rating"
                   style={{ width: `${breakdown.distribution[star]}%` }}
                 />
               </span>
-              <span className="w-9 shrink-0 text-right 2xl:w-[50px]">{breakdown.distribution[star]}%</span>
+              <span className="w-9 shrink-0 text-right 2xl:w-12.5">{breakdown.distribution[star]}%</span>
             </li>
           ))}
         </ul>
@@ -59,10 +59,10 @@ export function ProductReviews({ reviews, breakdown }: ProductReviewsProps) {
 
       <ul className="space-y-4 2xl:space-y-5">
         {reviews.map((review) => (
-          <li key={review.id} className={`${card} p-5 2xl:min-h-[218px] 2xl:px-[30px] 2xl:pt-[28px] 2xl:pb-8`}>
+          <li key={review.id} className={`${card} p-5 2xl:min-h-54.5 2xl:px-7.5 2xl:pt-7 2xl:pb-2`}>
             <div className="flex items-start justify-between gap-4">
-              <div className="flex items-center gap-3 2xl:gap-[10px]">
-                <span className="grid size-11 shrink-0 place-items-center rounded-full bg-brand text-base font-semibold text-white 2xl:size-[73px] 2xl:text-[28px]">
+              <div className="flex items-center gap-3 2xl:gap-2.5">
+                <span className="grid size-11 shrink-0 place-items-center rounded-full bg-brand text-base font-semibold text-white 2xl:size-18.25 2xl:text-[28px]">
                   {review.author.charAt(0)}
                 </span>
                 <div>
@@ -72,7 +72,7 @@ export function ProductReviews({ reviews, breakdown }: ProductReviewsProps) {
               </div>
               <RatingStars value={review.rating} className="text-sm 2xl:mt-2 2xl:text-base" />
             </div>
-            <p className="mt-4 text-sm text-ink-muted 2xl:mt-[26px] 2xl:max-w-[651px] 2xl:pl-2 2xl:text-lg 2xl:leading-[30px]">
+            <p className="mt-4 text-sm text-ink-muted 2xl:mt-6.5 2xl:max-w-162.75 2xl:pl-2 2xl:text-lg 2xl:leading-7.5">
               {review.body}
             </p>
           </li>
