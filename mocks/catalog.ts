@@ -88,17 +88,12 @@ const seeds: Seed[] = [
   { slug: "waterproof-makeup-pouch", name: "Waterproof Makeup Pouch", price: 1750, compareAtPrice: 2550, rating: { average: 4.6, count: 214 }, soldCount: 92, storeId: "st_4", categoryId: "ct_6" },
 ];
 
-/**
- * Extra gallery shots per product, as file names in public/images/products.
- * Matilda's Figma exports go here once they are in that folder, e.g.
- * "matilda-pinafore-set": ["matilda-main.jpg", "matilda-thumb-1.jpg", ...].
- * Products without an entry use their single card image.
- */
+
 const galleryFiles: Partial<Record<string, string[]>> = {};
 
 function galleryFor(slug: string, name: string): Product["images"] {
   const files = galleryFiles[slug];
-  const urls = files?.length ? files.map((file) => `/images/products/${file}`) : [`/images/products/${slug}.jpg`];
+  const urls = files?.length ? files.map((file) => `/images/products/${file}`) : [`/images/products/${slug}.png`];
   return urls.map((url, index) => ({ url, alt: index === 0 ? name : `${name} — view ${index + 1}` }));
 }
 
