@@ -4,9 +4,7 @@ import { BannerCarousel } from "./banner-carousel";
 
 type HeroBannersProps = {
   hero: Banner[];
-  /** Two stacked carousels on the right: [top slides, bottom slides]. */
   side: [Banner[], Banner[]];
-  /** Rendered under the main banner, beside the side banners (trust badges). */
   children?: React.ReactNode;
 };
 

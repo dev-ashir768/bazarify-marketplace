@@ -12,9 +12,7 @@ import type { Banner } from "@/types/catalog";
 type BannerCarouselProps = {
   slides: Banner[];
   label: string;
-  /** `sizes` for next/image. */
   sizes: string;
-  /** Aspect ratio class for each slide; pass "h-full" when the parent sets the height. */
   slideClassName?: string;
   className?: string;
   priority?: boolean;
@@ -50,7 +48,7 @@ export function BannerCarousel({
       plugins={slides.length > 1 ? plugins : []}
       aria-label={label}
       className={cn(
-        "overflow-hidden rounded-3xl bg-surface xl:rounded-[28px] [&_[data-slot=carousel-content]]:h-full",
+        "overflow-hidden rounded-3xl bg-surface xl:rounded-[28px] **:data-[slot=carousel-content]:h-full",
         className,
       )}
     >

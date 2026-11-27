@@ -27,14 +27,12 @@ export const categories: Category[] = [
 ];
 
 export const banners: { hero: Banner[]; side: [Banner[], Banner[]] } = {
-  // Only one hero image exists in Figma; the others repeat it until real banners come from the API.
   hero: [
     { id: "bn_hero_1", image: "/images/banners/ayesha-collection.jpg", alt: "Ayesha Collection — Everyday elegance, for every you", href: "#" },
     { id: "bn_hero_2", image: "/images/banners/ayesha-collection.jpg", alt: "Ayesha Collection — New arrivals", href: "#" },
     { id: "bn_hero_3", image: "/images/banners/ayesha-collection.jpg", alt: "Ayesha Collection — Festive edit", href: "#" },
   ],
   side: [
-    // Top and bottom carousels. Figma has one image each, so they swap until real banners come from the API.
     [
       { id: "bn_jersey", image: "/images/banners/jersey.jpg", alt: "The Jersey collection", href: "#" },
       { id: "bn_beat_2", image: "/images/banners/feel-every-beat.jpg", alt: "Feel every beat — new drop", href: "#" },
