@@ -70,7 +70,7 @@ export function SiteFooter() {
             <li>NTN: {registration.ntn}</li>
             <li>FBR: {registration.fbr}</li>
           </ul>
-          <div className="mt-5 grid size-[60px] place-items-center rounded-xl bg-white text-sm font-extrabold tracking-tight text-[#1b5fa8]">
+          <div className="mt-5 grid size-15 place-items-center rounded-xl bg-white text-sm font-extrabold tracking-tight text-[#1b5fa8]">
             FBR
           </div>
         </div>
