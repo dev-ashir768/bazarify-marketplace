@@ -40,6 +40,19 @@ export async function getRelatedProducts(productId: string): Promise<ProductWith
   return products.filter((p) => p.id !== productId).map(withStore);
 }
 
+export async function searchProducts(query: string): Promise<ProductWithStore[]> {
+  "use cache";
+  cacheLife("minutes");
+  const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
+  if (terms.length === 0) return [];
+
+  return products.map(withStore).filter((product) => {
+    const category = categories.find((c) => c.id === product.categoryId);
+    const haystack = [product.name, product.store.name, category?.name ?? ""].join(" ").toLowerCase();
+    return terms.every((term) => haystack.includes(term));
+  });
+}
+
 export async function getStores(): Promise<Store[]> {
   "use cache";
   cacheLife("hours");

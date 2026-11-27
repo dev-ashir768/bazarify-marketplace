@@ -5,6 +5,7 @@ export const routes = {
   cart: "/cart",
   checkoutSuccess: (orderId: string) => `/checkout/success?order=${encodeURIComponent(orderId)}`,
   wishlist: "/wishlist",
+  search: (query?: string) => (query ? `/search?q=${encodeURIComponent(query)}` : "/search"),
   trackOrder: "#",
   returns: "#",
   shipping: "#",

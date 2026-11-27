@@ -20,6 +20,7 @@ app/                      Routes only: thin pages that fetch data and compose fe
     cart/                 Cart + shipping details (checkout)
     checkout/success/     Order confirmation
     wishlist/
+    search/               Search results for ?q= (name, store, category)
   layout.tsx              Root layout: fonts, metadata, providers
   globals.css             Design tokens (brand colors, fonts) and the container utility
 components/
@@ -65,5 +66,5 @@ public/images/            brand/, banners/, products/
 
 ## Known gaps (not in the Figma V3 design yet)
 
-Login/Signup, store page, category/search results page, order tracking, account/orders, policy pages, seller and admin dashboards.
+Login/Signup, store page, category page, order tracking, account/orders, policy pages, seller and admin dashboards.
 Product images in `public/images/products` are crops of the Figma mockup, so some of them still contain the design's badge and heart. Real images will come from the API.

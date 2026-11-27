@@ -1,6 +1,14 @@
+import { Suspense } from "react";
+import Form from "next/form";
 import { SearchIcon } from "lucide-react";
 
+import { routes } from "@/config/routes";
 import { cn } from "@/lib/utils";
+
+import { SearchFieldInput, SearchQueryInput } from "./search-query-input";
+
+const inputClass =
+  "h-12 w-full rounded-full bg-surface pr-14 pl-6 text-sm text-ink placeholder:text-ink-muted outline-none focus-visible:ring-2 focus-visible:ring-brand/40 lg:h-14.5 lg:pl-8 lg:text-lg";
 
 type SearchBarProps = {
   placeholder?: string;
@@ -11,18 +19,16 @@ export function SearchBar({
   placeholder = "What are you shopping for today?",
   className,
 }: SearchBarProps) {
+  // next/form submits as a client-side navigation (no full page reload) and prefetches the target.
   return (
-    <form role="search" action="/" className={cn("relative w-full", className)}>
+    <Form role="search" action={routes.search()} className={cn("relative w-full", className)}>
       <label htmlFor="site-search" className="sr-only">
         Search products
       </label>
-      <input
-        id="site-search"
-        name="q"
-        type="search"
-        placeholder={placeholder}
-        className="h-12 w-full rounded-full bg-surface pr-14 pl-6 text-sm text-ink placeholder:text-ink-muted outline-none focus-visible:ring-2 focus-visible:ring-brand/40 lg:h-14.5 lg:pl-8 lg:text-lg"
-      />
+      {/* Reading the URL query is request-specific, so it sits behind Suspense. */}
+      <Suspense fallback={<SearchFieldInput id="site-search" placeholder={placeholder} className={inputClass} />}>
+        <SearchQueryInput id="site-search" placeholder={placeholder} className={inputClass} />
+      </Suspense>
       <button
         type="submit"
         aria-label="Search"
@@ -30,6 +36,6 @@ export function SearchBar({
       >
         <SearchIcon className="size-4 lg:size-6" strokeWidth={2.5} />
       </button>
-    </form>
+    </Form>
   );
 }
