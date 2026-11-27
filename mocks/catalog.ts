@@ -28,18 +28,18 @@ export const categories: Category[] = [
 
 export const banners: { hero: Banner[]; side: [Banner[], Banner[]] } = {
   hero: [
-    { id: "bn_hero_1", image: "/images/banners/ayesha-collection.jpg", alt: "Ayesha Collection — Everyday elegance, for every you", href: "#" },
-    { id: "bn_hero_2", image: "/images/banners/ayesha-collection.jpg", alt: "Ayesha Collection — New arrivals", href: "#" },
-    { id: "bn_hero_3", image: "/images/banners/ayesha-collection.jpg", alt: "Ayesha Collection — Festive edit", href: "#" },
+    { id: "bn_hero_1", image: "/images/banners/ayesha-collection.png", alt: "Ayesha Collection — Everyday elegance, for every you", href: "#" },
+    { id: "bn_hero_2", image: "/images/banners/ayesha-collection.png", alt: "Ayesha Collection — New arrivals", href: "#" },
+    { id: "bn_hero_3", image: "/images/banners/ayesha-collection.png", alt: "Ayesha Collection — Festive edit", href: "#" },
   ],
   side: [
     [
-      { id: "bn_jersey", image: "/images/banners/jersey.jpg", alt: "The Jersey collection", href: "#" },
-      { id: "bn_beat_2", image: "/images/banners/feel-every-beat.jpg", alt: "Feel every beat — new drop", href: "#" },
+      { id: "bn_jersey", image: "/images/banners/jersey.png", alt: "The Jersey collection", href: "#" },
+      { id: "bn_beat_2", image: "/images/banners/feel-every-beat.png", alt: "Feel every beat — new drop", href: "#" },
     ],
     [
-      { id: "bn_beat", image: "/images/banners/feel-every-beat.jpg", alt: "Feel every beat — powerful dynamic drivers", href: "#" },
-      { id: "bn_jersey_2", image: "/images/banners/jersey.jpg", alt: "The Jersey collection — match day", href: "#" },
+      { id: "bn_beat", image: "/images/banners/feel-every-beat.png", alt: "Feel every beat — powerful dynamic drivers", href: "#" },
+      { id: "bn_jersey_2", image: "/images/banners/jersey.png", alt: "The Jersey collection — match day", href: "#" },
     ],
   ],
 };
