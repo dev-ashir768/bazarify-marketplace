@@ -2,6 +2,9 @@
  * Temporary mock data taken from the Figma design (Bazarify V3).
  * Only `services/*` may import from here — swap those for real API calls later.
  */
+import { existsSync } from "node:fs";
+import { join } from "node:path";
+
 import type { Banner, Category, Product, Review, Store } from "@/types/catalog";
 
 export const stores: Store[] = [
@@ -26,16 +29,23 @@ export const categories: Category[] = [
   { id: "ct_8", slug: "health", name: "Health", itemCount: 50 },
 ];
 
-export const banners: { hero: Banner; side: Banner[] } = {
-  hero: {
-    id: "bn_hero",
-    image: "/images/banners/ayesha-collection.jpg",
-    alt: "Ayesha Collection — Everyday elegance, for every you",
-    href: "#",
-  },
+export const banners: { hero: Banner[]; side: [Banner[], Banner[]] } = {
+  // Only one hero image exists in Figma; the others repeat it until real banners come from the API.
+  hero: [
+    { id: "bn_hero_1", image: "/images/banners/ayesha-collection.jpg", alt: "Ayesha Collection — Everyday elegance, for every you", href: "#" },
+    { id: "bn_hero_2", image: "/images/banners/ayesha-collection.jpg", alt: "Ayesha Collection — New arrivals", href: "#" },
+    { id: "bn_hero_3", image: "/images/banners/ayesha-collection.jpg", alt: "Ayesha Collection — Festive edit", href: "#" },
+  ],
   side: [
-    { id: "bn_jersey", image: "/images/banners/jersey.jpg", alt: "The Jersey collection", href: "#" },
-    { id: "bn_beat", image: "/images/banners/feel-every-beat.jpg", alt: "Feel every beat — powerful dynamic drivers", href: "#" },
+    // Top and bottom carousels. Figma has one image each, so they swap until real banners come from the API.
+    [
+      { id: "bn_jersey", image: "/images/banners/jersey.jpg", alt: "The Jersey collection", href: "#" },
+      { id: "bn_beat_2", image: "/images/banners/feel-every-beat.jpg", alt: "Feel every beat — new drop", href: "#" },
+    ],
+    [
+      { id: "bn_beat", image: "/images/banners/feel-every-beat.jpg", alt: "Feel every beat — powerful dynamic drivers", href: "#" },
+      { id: "bn_jersey_2", image: "/images/banners/jersey.jpg", alt: "The Jersey collection — match day", href: "#" },
+    ],
   ],
 };
 
@@ -83,12 +93,31 @@ const seeds: Seed[] = [
   { slug: "waterproof-makeup-pouch", name: "Waterproof Makeup Pouch", price: 1750, compareAtPrice: 2550, rating: { average: 4.6, count: 214 }, soldCount: 92, storeId: "st_4", categoryId: "ct_6" },
 ];
 
+/** Extra gallery shots exported from Figma, used only when the files exist in public/. */
+const galleryFiles: Record<string, string[]> = {
+  "matilda-pinafore-set": [
+    "matilda-main.jpg",
+    "matilda-thumb-1.jpg",
+    "matilda-thumb-2.jpg",
+    "matilda-thumb-3.jpg",
+    "matilda-thumb-4.jpg",
+  ],
+};
+
+function galleryFor(slug: string, name: string): Product["images"] {
+  const files = (galleryFiles[slug] ?? []).filter((file) =>
+    existsSync(join(process.cwd(), "public/images/products", file)),
+  );
+  const urls = files.length > 0 ? files.map((file) => `/images/products/${file}`) : [`/images/products/${slug}.jpg`];
+  return urls.map((url, index) => ({ url, alt: index === 0 ? name : `${name} — view ${index + 1}` }));
+}
+
 export const products: Product[] = seeds.map((seed, index) => ({
   id: `pr_${index + 1}`,
   inStock: true,
   description: seed.description ?? defaultDescription,
   features: seed.features ?? [],
-  images: [{ url: `/images/products/${seed.slug}.jpg`, alt: seed.name }],
+  images: galleryFor(seed.slug, seed.name),
   ...seed,
 }));
 

@@ -38,7 +38,7 @@ export function HeaderActions() {
             href={href}
             aria-current={active ? "page" : undefined}
             className={cn(
-              "relative flex h-11 items-center gap-2.5 whitespace-nowrap rounded-full px-3 text-sm text-ink transition-colors hover:bg-surface lg:h-[65px] lg:px-7 lg:text-lg",
+              "relative flex h-11 items-center gap-2.5 whitespace-nowrap rounded-full px-3 text-sm text-ink transition-colors hover:bg-surface lg:h-16.25 lg:px-7 lg:text-lg",
               active && "bg-surface text-brand",
             )}
           >

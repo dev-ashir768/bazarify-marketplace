@@ -38,11 +38,11 @@ export function AddToCartForm({ product }: AddToCartFormProps) {
   };
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 2xl:space-y-[30px]">
       {product.sizes && product.sizes.length > 0 && (
         <fieldset>
-          <legend className="mb-2.5 text-xs text-ink-muted uppercase xl:text-sm">Size:</legend>
-          <div className="flex flex-wrap gap-2">
+          <legend className="mb-3 text-xs text-ink-muted uppercase 2xl:mb-[13px] 2xl:text-sm">Size:</legend>
+          <div className="flex flex-wrap gap-2.5">
             {product.sizes.map((option) => (
               <button
                 key={option}
@@ -50,8 +50,8 @@ export function AddToCartForm({ product }: AddToCartFormProps) {
                 aria-pressed={size === option}
                 onClick={() => setSize(option)}
                 className={cn(
-                  "h-9 rounded-full border border-transparent bg-surface px-4 text-xs text-ink transition-colors xl:h-10 xl:text-sm",
-                  size === option && "border-brand bg-white text-brand",
+                  "h-10 rounded-full border border-transparent bg-surface px-4 text-xs text-ink uppercase transition-colors hover:border-brand/40 2xl:h-[53px] 2xl:min-w-[154px] 2xl:px-5 2xl:text-base",
+                  size === option && "border-brand text-brand",
                 )}
               >
                 {option}
@@ -61,20 +61,20 @@ export function AddToCartForm({ product }: AddToCartFormProps) {
         </fieldset>
       )}
 
-      <div className="flex items-center gap-3">
-        <QuantityStepper value={quantity} onChange={setQuantity} />
+      <div className="flex items-center gap-3 2xl:gap-[15px]">
+        <QuantityStepper value={quantity} onChange={setQuantity} size="lg" />
         <Button
           type="button"
           onClick={addToCart}
           disabled={!product.inStock}
-          className="h-11 flex-1 gap-2 rounded-xl text-sm sm:max-w-[290px] xl:h-12 xl:text-base"
+          className="h-12 flex-1 gap-2.5 rounded-xl text-sm sm:max-w-[457px] 2xl:h-[66px] 2xl:rounded-[14px] 2xl:text-lg"
         >
           <ShoppingCartIcon className="size-5" />
           Add to Cart
         </Button>
       </div>
 
-      <p className="text-sm">
+      <p className="text-sm text-ink-muted 2xl:text-lg">
         Availability:{" "}
         <span className={cn("font-semibold", product.inStock ? "text-ink" : "text-sale")}>
           {product.inStock ? "In stock" : "Out of stock"}

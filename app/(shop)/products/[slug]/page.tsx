@@ -45,19 +45,20 @@ async function ProductContent({ params }: Pick<PageProps<"/products/[slug]">, "p
   ]);
 
   return (
-    <div className="container-page space-y-12 py-6 xl:space-y-16 xl:py-10">
+    <div className="container-page py-6 2xl:pt-[69px] 2xl:pb-0">
       <Breadcrumbs items={[{ label: "Marketplace", href: routes.home }, { label: product.name }]} />
 
-      <div className="grid gap-10 lg:grid-cols-2 xl:gap-16">
-        <div className="space-y-10">
+      {/* Figma 1920: 806px left column, 68px gap, 826px info column. */}
+      <div className="mt-6 grid items-start gap-10 lg:grid-cols-[806fr_826fr] xl:gap-12 2xl:mt-10 2xl:max-w-[1700px] 2xl:gap-[68px]">
+        <div className="space-y-10 2xl:space-y-[79px]">
           <ProductGallery images={product.images} />
           <ProductReviews reviews={reviews} breakdown={breakdown} />
         </div>
         <ProductInfo product={product} />
       </div>
 
-      <section aria-labelledby="related-heading" className="space-y-6 xl:space-y-9">
-        <h2 id="related-heading" className="text-2xl font-semibold text-ink xl:text-[34px]">
+      <section aria-labelledby="related-heading" className="mt-12 space-y-6 2xl:mt-[80px] 2xl:space-y-9">
+        <h2 id="related-heading" className="text-2xl font-semibold text-ink 2xl:text-[28px]">
           You May Also Like
         </h2>
         <ProductGrid products={related} />

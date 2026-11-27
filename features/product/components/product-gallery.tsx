@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
 import type { ProductImage } from "@/types/catalog";
 
@@ -11,67 +12,82 @@ type ProductGalleryProps = {
   images: ProductImage[];
 };
 
+/** Figma: 121×119 thumbnails (32px apart) beside a 622×572 swipeable main image with round arrows. */
 export function ProductGallery({ images }: ProductGalleryProps) {
+  const [api, setApi] = useState<CarouselApi>();
   const [active, setActive] = useState(0);
   const count = images.length;
-  const current = images[active];
-  const go = (delta: number) => setActive((i) => (i + delta + count) % count);
 
-  if (!current) return null;
+  useEffect(() => {
+    if (!api) return;
+    const onSelect = () => setActive(api.selectedScrollSnap());
+    api.on("select", onSelect);
+    return () => {
+      api.off("select", onSelect);
+    };
+  }, [api]);
+
+  if (count === 0) return null;
+
+  const arrow =
+    "absolute top-1/2 grid size-9 -translate-y-1/2 place-items-center rounded-full bg-white text-ink shadow-sm transition hover:scale-105 2xl:size-[46px]";
 
   return (
-    <div className="flex flex-col-reverse gap-3 sm:flex-row xl:gap-5">
+    <div className="flex flex-col-reverse gap-3 sm:flex-row sm:gap-5 2xl:gap-[34px]">
       {count > 1 && (
-        <ul className="flex gap-3 sm:w-[18%] sm:flex-col xl:gap-4">
-          {images.map((image, index) => (
-            <li key={image.url + index} className="w-1/4 sm:w-full">
+        <ul className="grid grid-cols-4 gap-3 sm:flex sm:w-[19.5%] sm:flex-col sm:gap-4 2xl:w-[121px] 2xl:gap-8">
+          {images.slice(0, 4).map((image, index) => (
+            <li key={image.url + index}>
               <button
                 type="button"
                 aria-label={`Show image ${index + 1}`}
                 aria-current={index === active}
-                onClick={() => setActive(index)}
+                onClick={() => api?.scrollTo(index)}
                 className={cn(
-                  "relative block aspect-square w-full overflow-hidden rounded-2xl bg-surface ring-2 ring-transparent transition",
-                  index === active && "ring-brand",
+                  "relative block aspect-[121/119] w-full overflow-hidden rounded-xl bg-surface opacity-70 outline-2 -outline-offset-2 outline-transparent transition",
+                  index === active && "opacity-100 outline-brand",
                 )}
               >
-                <Image src={image.url} alt="" fill sizes="10vw" className="object-cover" />
+                <Image src={image.url} alt="" fill sizes="121px" className="object-cover" />
               </button>
             </li>
           ))}
         </ul>
       )}
 
-      <div className="relative aspect-[4/3.6] flex-1 overflow-hidden rounded-3xl bg-surface xl:rounded-[28px]">
-        <Image
-          src={current.url}
-          alt={current.alt}
-          fill
-          priority
-          sizes="(min-width: 1024px) 40vw, 100vw"
-          className="object-cover"
-        />
+      <Carousel
+        setApi={setApi}
+        opts={{ loop: count > 1 }}
+        aria-label="Product images"
+        className="flex-1 overflow-hidden rounded-2xl bg-surface 2xl:rounded-[22px]"
+      >
+        <CarouselContent className="ml-0">
+          {images.map((image, index) => (
+            <CarouselItem key={image.url + index} className="pl-0">
+              <div className="relative aspect-[622/572]">
+                <Image
+                  src={image.url}
+                  alt={image.alt}
+                  fill
+                  priority={index === 0}
+                  sizes="(min-width: 1024px) 33vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
         {count > 1 && (
           <>
-            <button
-              type="button"
-              aria-label="Previous image"
-              onClick={() => go(-1)}
-              className="absolute top-1/2 left-3 grid size-10 -translate-y-1/2 place-items-center rounded-full bg-white shadow-md"
-            >
-              <ChevronLeftIcon className="size-5" />
+            <button type="button" aria-label="Previous image" onClick={() => api?.scrollPrev()} className={cn(arrow, "left-4 2xl:left-[66px]")}>
+              <ChevronLeftIcon className="size-5" strokeWidth={2.5} />
             </button>
-            <button
-              type="button"
-              aria-label="Next image"
-              onClick={() => go(1)}
-              className="absolute top-1/2 right-3 grid size-10 -translate-y-1/2 place-items-center rounded-full bg-white shadow-md"
-            >
-              <ChevronRightIcon className="size-5" />
+            <button type="button" aria-label="Next image" onClick={() => api?.scrollNext()} className={cn(arrow, "right-4 2xl:right-[20px]")}>
+              <ChevronRightIcon className="size-5" strokeWidth={2.5} />
             </button>
           </>
         )}
-      </div>
+      </Carousel>
     </div>
   );
 }

@@ -1,13 +1,15 @@
 "use client";
 
-import { useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 
-import { OutlinedInput, OutlinedSelect } from "@/components/shared/outlined-field";
+import { OutlinedCombobox } from "@/components/shared/outlined-combobox";
+import { OutlinedInput } from "@/components/shared/outlined-field";
 import { cities, type ShippingFormInput } from "@/schemas/checkout.schema";
 
 export function ShippingForm() {
   const {
     register,
+    control,
     formState: { errors },
   } = useFormContext<ShippingFormInput>();
 
@@ -34,12 +36,23 @@ export function ShippingForm() {
           error={errors.phone?.message}
           {...register("phone")}
         />
-        <OutlinedSelect
-          label="City"
-          options={[...cities]}
-          placeholder="Select city"
-          error={errors.city?.message}
-          {...register("city")}
+        <Controller
+          control={control}
+          name="city"
+          render={({ field, fieldState }) => (
+            <OutlinedCombobox
+              label="City"
+              name={field.name}
+              options={cities}
+              value={field.value}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              inputRef={field.ref}
+              placeholder="Search city"
+              emptyText="City not found"
+              error={fieldState.error?.message}
+            />
+          )}
         />
         <OutlinedInput label="Address" autoComplete="street-address" error={errors.address?.message} {...register("address")} />
       </div>
